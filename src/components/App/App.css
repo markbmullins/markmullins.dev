@@ -1,0 +1,73 @@
+.App {
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+li a {
+    display: block;
+}
+.container {
+    display: block;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.name {
+    color: #ffffff;
+    font-family: "Monoton", cursive;
+    font-size: 100px;
+}
+
+.social {
+    list-style: none;
+    display: flex;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 0;
+}
+
+.social-icon {
+    margin: auto;
+}
+
+.link {
+    height: 100%;
+    width: 100%;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.image-navigation {
+    color: white;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 50px;
+}
+
+.changer-button {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.left {
+    margin-right: 92%;
+}
+
+#slider {
+    margin-top: 10%;
+    color: #ffffff;
+}
+
+.PrivateValueLabel-label-25 {
+    color: #000000 !important;
+}
