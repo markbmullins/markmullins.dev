@@ -11,6 +11,9 @@ const backgrounds = files.map(file => <Image source={`${process.env.PUBLIC_URL}/
 const StyledSlider = styled(Slider)`
     margin-top: 10%;
     color: #ffffff;
+    & .PrivateValueLabel-label-25 {
+        color: #000000;
+    }
 `;
 
 const SocialIconContainer = styled.li`
@@ -44,26 +47,27 @@ const IconList = styled.ul`
     padding-inline-start: 0;
 `;
 
-const BackgroundNavigation = styled.span`
+const BackgroundNavigation = styled.div`
     color: white;
     position: absolute;
+    display: flex;
     top: 50%;
     width: 100%;
+    padding: 0 5%;
     height: 50px;
+    box-sizing: border-box;
 `;
 
-const BackgroundChanger = styled.span`
+const BackgroundChanger = styled.div`
     font-size: 40px;
     cursor: pointer;
 `;
 
 const NextBackground = styled(BackgroundChanger)`
     margin-left: auto;
-    margin-right: 5%;
 `;
 
 const PreviousBackground = styled(BackgroundChanger)`
-    margin-left: 5%;
 `;
 
 function App() {
@@ -86,7 +90,7 @@ function App() {
                 break;
             default:
         }
-    });
+    }, [backgroundNumber]);
 
     const handleSlider = (event, newValue) => {
         setChangeInterval(newValue);
@@ -104,55 +108,53 @@ function App() {
 
     return (
         <StylesProvider injectFirst>
-            <div>
-                <PageContent>
-                    <Name>Mark Mullins</Name>
-                    <IconList>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="https://github.com/markbmullins"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="https://www.linkedin.com/in/markbmullins/"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="mailto:markmullins95@gmail.com"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                    </IconList>
-                    <StyledSlider
-                        value={changeInterval}
-                        onChange={handleSlider}
-                        aria-labelledby="continuous-slider"
-                        valueLabelDisplay="auto"
-                        min={0}
-                        max={10}
-                        id="slider"
-                    />
-                </PageContent>
-                {backgrounds[backgroundNumber]}
-                <BackgroundNavigation>
-                    <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
-                        {"<"}
-                    </PreviousBackground>
-                    <NextBackground onClick={() => changeBackground(FORWARD)}>
-                        {">"}
-                    </NextBackground>
-                </BackgroundNavigation>
-            </div>
+            <PageContent>
+                <Name>Mark Mullins</Name>
+                <IconList>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="https://github.com/markbmullins"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="https://www.linkedin.com/in/markbmullins/"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="mailto:markmullins95@gmail.com"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                </IconList>
+                <StyledSlider
+                    value={changeInterval}
+                    onChange={handleSlider}
+                    aria-labelledby="continuous-slider"
+                    valueLabelDisplay="auto"
+                    min={0}
+                    max={10}
+                    id="slider"
+                />
+            </PageContent>
+            {backgrounds[backgroundNumber]}
+            <BackgroundNavigation>
+                <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
+                    {"<"}
+                </PreviousBackground>
+                <NextBackground onClick={() => changeBackground(FORWARD)}>
+                    {">"}
+                </NextBackground>
+            </BackgroundNavigation>
         </StylesProvider>
     );
 }

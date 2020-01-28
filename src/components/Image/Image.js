@@ -14,13 +14,13 @@ const StyledImage = styled.img`
     position: fixed;
     top: 0;
     left: 0;
-  }
   
   @media screen and (max-width: 1024px) {
     img.image {
       left: 50%;
       margin-left: -512px;   /* 50% */
     }
+  }
 `;
 
 const Image = ({ source }) => {
