@@ -27,13 +27,18 @@ const Name = styled.h1`
     z-index: 2;
 `;
 
-const PageContent = styled.div`
-    display: block;
+const PageContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    bottom: 35%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    height: 100%;
+    width: 100%;
+`;
+
+const PageContent = styled.div`
+    bottom: 30%;
     z-index: 2;
 `;
 
@@ -108,6 +113,7 @@ function App() {
 
     return (
         <StylesProvider injectFirst>
+            <PageContentContainer>
             <PageContent>
                 <Name>Mark Mullins</Name>
                 <IconList>
@@ -146,6 +152,7 @@ function App() {
                     id="slider"
                 />
             </PageContent>
+            </PageContentContainer>
             {backgrounds[backgroundNumber]}
             <BackgroundNavigation>
                 <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
