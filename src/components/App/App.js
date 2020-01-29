@@ -23,8 +23,8 @@ const SocialIconContainer = styled.li`
 const Name = styled.h1`
     color: #ffffff;
     font-family: "Monoton", cursive;
-    font-size: 100px;
     z-index: 2;
+    font-size: calc(1em + 6vw);
 `;
 
 const PageContentContainer = styled.div`
@@ -35,11 +35,16 @@ const PageContentContainer = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
+    @media screen and (max-width: 500px) {
+        justify-content: flex-start;
+    }
 `;
 
 const PageContent = styled.div`
-    bottom: 30%;
     z-index: 2;
+    @media screen and (max-width: 500px) {
+        margin-top: 35%;
+    }
 `;
 
 const IconList = styled.ul`
@@ -58,9 +63,13 @@ const BackgroundNavigation = styled.div`
     display: flex;
     top: 50%;
     width: 100%;
-    padding: 0 5%;
     height: 50px;
     box-sizing: border-box;
+    padding: 0 5%;
+    @media screen and (max-width: 500px) {
+        padding: 0 2%;
+        top: 80%;
+    }
 `;
 
 const BackgroundChanger = styled.div`

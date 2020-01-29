@@ -15,10 +15,10 @@ const StyledImage = styled.img`
     top: 0;
     left: 0;
   
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 375) {
     img.image {
       left: 50%;
-      margin-left: -512px;   /* 50% */
+      margin-left: -175px;   /* 50% */
     }
   }
 `;
