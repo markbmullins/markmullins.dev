@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { SocialIcon } from "react-social-icons";
 import Slider from "@material-ui/core/Slider";
 import Image from "../Image/Image";
 
-const files = ["sunset4.png", "sun.png", "sunset5.png", "plane.png", "triangles.jpg", "sunset.jpg", "sun2.jpg", "sun3.jpg"];
-const backgrounds = files.map(file => <Image source={`${process.env.PUBLIC_URL}/backgrounds/${file}`} />)
+const files = [
+    "sunset4.png",
+    "sun.png",
+    "sunset5.png",
+    "plane.png",
+    "triangles.jpg",
+    "sunset.jpg",
+    "sun2.jpg",
+    "sun3.jpg"
+];
+const backgrounds = files.map(file => (
+    <Image source={`${process.env.PUBLIC_URL}/backgrounds/${file}`} />
+));
 
 const StyledSlider = styled(Slider)`
     margin-top: 10%;
@@ -79,8 +90,7 @@ const NextBackground = styled(BackgroundChanger)`
     margin-left: auto;
 `;
 
-const PreviousBackground = styled(BackgroundChanger)`
-`;
+const PreviousBackground = styled(BackgroundChanger)``;
 
 const Home = () => {
     const [backgroundNumber, setBackgroundNumber] = useState(0);
@@ -88,21 +98,24 @@ const Home = () => {
     const FORWARD = "FORWARD";
     const BACKWARD = "BACKWARD";
 
-    const changeBackground = useCallback(direction => {
-        switch (direction) {
-            case FORWARD:
-                backgroundNumber === files.length - 1
-                    ? setBackgroundNumber(0)
-                    : setBackgroundNumber(backgroundNumber + 1);
-                break;
-            case BACKWARD:
-                backgroundNumber === 0
-                    ? setBackgroundNumber(files.length - 1)
-                    : setBackgroundNumber(backgroundNumber - 1);
-                break;
-            default:
-        }
-    }, [backgroundNumber]);
+    const changeBackground = useCallback(
+        direction => {
+            switch (direction) {
+                case FORWARD:
+                    backgroundNumber === files.length - 1
+                        ? setBackgroundNumber(0)
+                        : setBackgroundNumber(backgroundNumber + 1);
+                    break;
+                case BACKWARD:
+                    backgroundNumber === 0
+                        ? setBackgroundNumber(files.length - 1)
+                        : setBackgroundNumber(backgroundNumber - 1);
+                    break;
+                default:
+            }
+        },
+        [backgroundNumber]
+    );
 
     const handleSlider = (event, newValue) => {
         setChangeInterval(newValue);
@@ -120,56 +133,54 @@ const Home = () => {
     return (
         <Fragment>
             <PageContentContainer>
-            <PageContent>
-                <Name>Mark Mullins</Name>
-                <IconList>
-                    <SocialIconContainer>
-                        <SocialIcon
-                            url="https://github.com/markbmullins"
-                            target="blank"
-                            bgColor="#FFFFFF"
-                            fgColor="#000000"
-                        />
-                    </SocialIconContainer>
-                    <SocialIconContainer>
-                        <SocialIcon
-                            url="https://www.linkedin.com/in/markbmullins/"
-                            target="blank"
-                            bgColor="#FFFFFF"
-                            fgColor="#000000"
-                        />
-                    </SocialIconContainer>
-                    <SocialIconContainer>
-                        <SocialIcon
-                            url="mailto:markmullins95@gmail.com"
-                            target="blank"
-                            bgColor="#FFFFFF"
-                            fgColor="#000000"
-                        />
-                    </SocialIconContainer>
-                </IconList>
-                <StyledSlider
-                    value={changeInterval}
-                    onChange={handleSlider}
-                    aria-labelledby="continuous-slider"
-                    valueLabelDisplay="auto"
-                    min={0}
-                    max={10}
-                    id="slider"
-                />
-            </PageContent>
+                <PageContent>
+                    <Name>Mark Mullins</Name>
+                    <IconList>
+                        <SocialIconContainer>
+                            <SocialIcon
+                                url="https://github.com/markbmullins"
+                                target="blank"
+                                bgColor="#FFFFFF"
+                                fgColor="#000000"
+                            />
+                        </SocialIconContainer>
+                        <SocialIconContainer>
+                            <SocialIcon
+                                url="https://www.linkedin.com/in/markbmullins/"
+                                target="blank"
+                                bgColor="#FFFFFF"
+                                fgColor="#000000"
+                            />
+                        </SocialIconContainer>
+                        <SocialIconContainer>
+                            <SocialIcon
+                                url="mailto:markmullins95@gmail.com"
+                                target="blank"
+                                bgColor="#FFFFFF"
+                                fgColor="#000000"
+                            />
+                        </SocialIconContainer>
+                    </IconList>
+                    <StyledSlider
+                        value={changeInterval}
+                        onChange={handleSlider}
+                        aria-labelledby="continuous-slider"
+                        valueLabelDisplay="auto"
+                        min={0}
+                        max={10}
+                        id="slider"
+                    />
+                </PageContent>
             </PageContentContainer>
             {backgrounds[backgroundNumber]}
             <BackgroundNavigation>
                 <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
                     {"<"}
                 </PreviousBackground>
-                <NextBackground onClick={() => changeBackground(FORWARD)}>
-                    {">"}
-                </NextBackground>
+                <NextBackground onClick={() => changeBackground(FORWARD)}>{">"}</NextBackground>
             </BackgroundNavigation>
         </Fragment>
     );
-}
+};
 
 export default Home;
