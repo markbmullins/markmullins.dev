@@ -25,11 +25,6 @@ const NavItem = styled.div`
 function App() {
     return (
         <StylesProvider injectFirst>
-            <Navbar>
-                <NavItem>Home</NavItem>
-                <NavItem>Projects</NavItem>
-                <NavItem>About</NavItem>
-            </Navbar>
             <Router>
                 <Switch>
                     <Route path="/about"></Route>

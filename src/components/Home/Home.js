@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import styled from "styled-components";
+import LayoutOne from "../Layouts/LayoutOne";
 import { SocialIcon } from "react-social-icons";
 import Slider from "@material-ui/core/Slider";
 import Image from "../Image/Image";
 
 const files = [
-    "sunset4.png",
     "sun.png",
     "sunset5.png",
     "plane.png",
@@ -14,9 +14,8 @@ const files = [
     "sun2.jpg",
     "sun3.jpg"
 ];
-const backgrounds = files.map(file => (
-    <Image source={`${process.env.PUBLIC_URL}/backgrounds/${file}`} />
-));
+
+const backgrounds = files.map(file => `${process.env.PUBLIC_URL}/backgrounds/${file}`);
 
 const StyledSlider = styled(Slider)`
     margin-top: 10%;
@@ -33,27 +32,8 @@ const SocialIconContainer = styled.li`
 const Name = styled.h1`
     color: #ffffff;
     font-family: "Monoton", cursive;
-    z-index: 2;
+    text-align: center;
     font-size: calc(1em + 6vw);
-`;
-
-const PageContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    @media screen and (max-width: 500px) {
-        justify-content: flex-start;
-    }
-`;
-
-const PageContent = styled.div`
-    z-index: 2;
-    @media screen and (max-width: 500px) {
-        margin-top: 35%;
-    }
 `;
 
 const IconList = styled.ul`
@@ -66,22 +46,15 @@ const IconList = styled.ul`
     padding-inline-start: 0;
 `;
 
-const BackgroundNavigation = styled.div`
-    color: white;
-    position: absolute;
-    display: flex;
+const SideNavContainer = styled.div`
+    position: relative;
     top: 50%;
-    width: 100%;
-    height: 50px;
-    box-sizing: border-box;
-    padding: 0 5%;
-    @media screen and (max-width: 500px) {
-        padding: 0 2%;
-        top: 80%;
-    }
+    left: 50%;
+    display: inline-block;
 `;
 
 const BackgroundChanger = styled.div`
+    color: white;
     font-size: 40px;
     cursor: pointer;
 `;
@@ -91,6 +64,8 @@ const NextBackground = styled(BackgroundChanger)`
 `;
 
 const PreviousBackground = styled(BackgroundChanger)``;
+
+const Navbar = styled.div``;
 
 const Home = () => {
     const [backgroundNumber, setBackgroundNumber] = useState(0);
@@ -113,6 +88,10 @@ const Home = () => {
                     break;
                 default:
             }
+            const el = document.documentElement;
+            if (el) {
+                el.style.background = `url(${backgrounds[backgroundNumber]}) no-repeat center center fixed`;
+            }
         },
         [backgroundNumber]
     );
@@ -122,64 +101,77 @@ const Home = () => {
     };
 
     useEffect(() => {
-        if (changeInterval !== 0) {
+        let newInterval;
+        changeInterval === 10 ? (newInterval = 0) : (newInterval = changeInterval + 1);
+        if (newInterval) {
             const interval = setInterval(() => {
                 changeBackground(FORWARD);
-            }, changeInterval * 1000);
+            }, newInterval * 1000);
 
             return () => clearInterval(interval);
         }
     }, [changeBackground, changeInterval]);
+
+    useEffect(() => {
+        const el = document.documentElement;
+        if (el) {
+            el.style.background = `url(${backgrounds[0]}) no-repeat center center fixed`;
+        }
+    }, []);
     return (
-        <Fragment>
-            <PageContentContainer>
-                <PageContent>
-                    <Name>Mark Mullins</Name>
-                    <IconList>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="https://github.com/markbmullins"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="https://www.linkedin.com/in/markbmullins/"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                        <SocialIconContainer>
-                            <SocialIcon
-                                url="mailto:markmullins95@gmail.com"
-                                target="blank"
-                                bgColor="#FFFFFF"
-                                fgColor="#000000"
-                            />
-                        </SocialIconContainer>
-                    </IconList>
-                    <StyledSlider
-                        value={changeInterval}
-                        onChange={handleSlider}
-                        aria-labelledby="continuous-slider"
-                        valueLabelDisplay="auto"
-                        min={0}
-                        max={10}
-                        id="slider"
-                    />
-                </PageContent>
-            </PageContentContainer>
-            {backgrounds[backgroundNumber]}
-            <BackgroundNavigation>
-                <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
-                    {"<"}
-                </PreviousBackground>
-                <NextBackground onClick={() => changeBackground(FORWARD)}>{">"}</NextBackground>
-            </BackgroundNavigation>
-        </Fragment>
+        <LayoutOne
+            navbar={<Navbar />}
+            subGridChildren={[
+                <Name>Mark Mullins</Name>,
+                <IconList>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="https://github.com/markbmullins"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="https://www.linkedin.com/in/markbmullins/"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                    <SocialIconContainer>
+                        <SocialIcon
+                            url="mailto:markmullins95@gmail.com"
+                            target="blank"
+                            bgColor="#FFFFFF"
+                            fgColor="#000000"
+                        />
+                    </SocialIconContainer>
+                </IconList>,
+                <StyledSlider
+                    value={changeInterval}
+                    onChange={handleSlider}
+                    aria-labelledby="continuous-slider"
+                    min={0}
+                    max={10}
+                    id="slider"
+                />
+            ]}
+            sideNavLeft={
+                <SideNavContainer>
+                    <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
+                        {"<"}
+                    </PreviousBackground>
+                </SideNavContainer>
+            }
+            sideNavRight={
+                <SideNavContainer>
+                    <NextBackground onClick={() => changeBackground(FORWARD)}>{">"}</NextBackground>
+                </SideNavContainer>
+            }
+            styles={{ Subgrid: "align-self: center;" }}
+        />
     );
 };
 
