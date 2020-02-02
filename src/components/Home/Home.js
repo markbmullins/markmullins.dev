@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback, Fragment } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import LayoutOne from "../Layouts/LayoutOne";
 import { SocialIcon } from "react-social-icons";
 import Slider from "@material-ui/core/Slider";
-import Image from "../Image/Image";
 
 const files = [
     "sun.png",
@@ -34,6 +33,10 @@ const Name = styled.h1`
     font-family: "Monoton", cursive;
     text-align: center;
     font-size: calc(1em + 6vw);
+
+    @media screen and (max-width: 500px) {
+        text-align: left;
+    }
 `;
 
 const IconList = styled.ul`
@@ -46,11 +49,15 @@ const IconList = styled.ul`
     padding-inline-start: 0;
 `;
 
-const SideNavContainer = styled.div`
+const RightSideNavContainer = styled.div`
     position: relative;
     top: 50%;
     left: 50%;
     display: inline-block;
+`;
+
+const LeftSideNavContainer = styled(RightSideNavContainer)`
+    right: 50%;
 `;
 
 const BackgroundChanger = styled.div`
@@ -59,13 +66,18 @@ const BackgroundChanger = styled.div`
     cursor: pointer;
 `;
 
-const NextBackground = styled(BackgroundChanger)`
-    margin-left: auto;
-`;
+const NextBackground = styled(BackgroundChanger)``;
 
 const PreviousBackground = styled(BackgroundChanger)``;
 
-const Navbar = styled.div``;
+const Navbar = styled.div`
+    // background-color: #424242;
+    // height: 80px;
+    // width: 100%;
+    // -moz-box-shadow: 0 0 15px #000000;
+    // -webkit-box-shadow: 0 0 15px #000000;
+    // box-shadow: 0 0 15px #000000;
+`;
 
 const Home = () => {
     const [backgroundNumber, setBackgroundNumber] = useState(0);
@@ -112,12 +124,14 @@ const Home = () => {
         }
     }, [changeBackground, changeInterval]);
 
+    // Set background on initial render
     useEffect(() => {
         const el = document.documentElement;
         if (el) {
             el.style.background = `url(${backgrounds[0]}) no-repeat center center fixed`;
         }
     }, []);
+
     return (
         <LayoutOne
             navbar={<Navbar />}
@@ -159,18 +173,20 @@ const Home = () => {
                 />
             ]}
             sideNavLeft={
-                <SideNavContainer>
+                <LeftSideNavContainer>
                     <PreviousBackground onClick={() => changeBackground(BACKWARD)}>
                         {"<"}
                     </PreviousBackground>
-                </SideNavContainer>
+                </LeftSideNavContainer>
             }
             sideNavRight={
-                <SideNavContainer>
+                <RightSideNavContainer>
                     <NextBackground onClick={() => changeBackground(FORWARD)}>{">"}</NextBackground>
-                </SideNavContainer>
+                </RightSideNavContainer>
             }
-            styles={{ Subgrid: "align-self: center;" }}
+            styles={{
+                Subgrid: "align-self: center;"
+            }}
         />
     );
 };

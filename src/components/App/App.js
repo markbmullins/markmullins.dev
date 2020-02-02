@@ -8,7 +8,6 @@ const Navbar = styled.nav`
     position: absolute;
     top: 0;
 
-    ${"" /* background-color: #212121; */}
     display: flex;
     justify-content: flex-end;
     padding-right: 5%;

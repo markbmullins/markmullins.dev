@@ -19,6 +19,8 @@ const Grid = styled.div`
 const Navbar = styled.nav`
     background-color: ${props => (props.bg ? "red" : "transparent")};
     grid-column: 1 / span 3;
+
+    ${props => props.styles}
 `;
 
 const Subgrid = styled.section`
