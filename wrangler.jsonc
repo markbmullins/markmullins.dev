@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "markmullins-dev",
+  "compatibility_date": "2026-10-01",
+  // No code: static assets only. public/_redirects sends every path to GitHub with a 301.
+  "assets": { "directory": "./public" },
+  "routes": [{ "pattern": "markmullins.dev", "custom_domain": true }],
+  "workers_dev": true
+}
